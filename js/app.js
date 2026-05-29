@@ -211,18 +211,91 @@
             document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
         }
 
-        // Postman widget — placeholder (full integration in Sprint 2)
+        // Postman chat — real fetch to backend Worker, graceful fallback.
+        setupPostmanChat();
+    }
+
+    // --------- Postman chat ---------
+    const POSTMAN_API = 'https://api.stampscaner.com/v1/postman/chat';
+    const POSTMAN_HISTORY_CAP = 12;
+    const postmanHistory = [];
+
+    function setupPostmanChat() {
         const sendBtn = document.querySelector('[data-postman-send]');
-        if (sendBtn) {
-            sendBtn.addEventListener('click', e => {
-                e.preventDefault();
-                alert(currentLang === 'ru'
-                    ? 'Полная интеграция Postman — в Спринте 2. Сейчас можно написать на email или Telegram.'
-                    : currentLang === 'ar'
-                        ? 'تكامل Postman الكامل — في Sprint 2. الآن يمكنك الكتابة عبر البريد الإلكتروني أو Telegram.'
-                        : 'Full Postman integration ships in Sprint 2. For now, email or Telegram works.');
+        const field   = document.querySelector('.chat-preview__field');
+        const inputRow = document.querySelector('.chat-preview__input');
+        const card    = document.querySelector('.chat-preview');
+        if (!sendBtn || !field || !inputRow || !card) return;
+
+        const send = (e) => {
+            e && e.preventDefault();
+            const text = field.value.trim();
+            if (!text) return;
+            field.value = '';
+            appendBubble(inputRow, 'user', text);
+            postmanHistory.push({ role: 'user', content: text });
+
+            const typing = appendTyping(inputRow);
+            askPostman(text).then(reply => {
+                typing.remove();
+                appendBubble(inputRow, 'postman', reply);
+                postmanHistory.push({ role: 'assistant', content: reply });
+                while (postmanHistory.length > POSTMAN_HISTORY_CAP) {
+                    postmanHistory.shift();
+                }
+            }).catch(err => {
+                typing.remove();
+                appendBubble(inputRow, 'postman', offlineMessage());
+                console.warn('Postman fetch failed:', err);
             });
-        }
+        };
+
+        sendBtn.addEventListener('click', send);
+        field.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) send(e);
+        });
+    }
+
+    function appendBubble(beforeNode, who, text) {
+        const div = document.createElement('div');
+        div.className = 'chat-preview__msg chat-preview__msg--' + who;
+        div.textContent = text;
+        beforeNode.parentNode.insertBefore(div, beforeNode);
+        beforeNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function appendTyping(beforeNode) {
+        const div = document.createElement('div');
+        div.className = 'chat-preview__msg chat-preview__msg--postman';
+        div.setAttribute('aria-live', 'polite');
+        div.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
+        beforeNode.parentNode.insertBefore(div, beforeNode);
+        return div;
+    }
+
+    async function askPostman(text) {
+        const resp = await fetch(POSTMAN_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: text,
+                history: postmanHistory.slice(0, -1), // last entry is the user msg we just pushed
+                lang: currentLang,
+            }),
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        if (typeof data.reply !== 'string') throw new Error('No reply field');
+        return data.reply;
+    }
+
+    function offlineMessage() {
+        return dictionary['postman.offline'] || (
+            currentLang === 'ar'
+                ? 'الواجهة الخلفية لـ Postman قيد التفعيل. يرجى الكتابة عبر البريد aslankaa@yandex.ru.'
+                : currentLang === 'en'
+                    ? 'The Postman backend is being switched on. Please write to aslankaa@yandex.ru in the meantime.'
+                    : 'Бэкенд Postman сейчас включается. Напишите на aslankaa@yandex.ru — основатель ответит.');
     }
 
     if (document.readyState === 'loading') {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6B1F2E">
+    <meta name="description" content="Как поставить StampScaner на Android-смартфон вручную из APK. Пошаговая инструкция с проверкой подписи и решением частых ошибок.">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Установка StampScaner на Android · StampScaner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='12' width='80' height='76' fill='%236B1F2E' stroke='%23B8924C' stroke-width='2' rx='2'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%23B8924C' stroke-width='3'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='serif' font-size='28' font-weight='600' fill='%23F5EDDC'%3ES%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="index.html" class="brand">
+                <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect x="6" y="8" width="88" height="84" fill="var(--c-burgundy)" stroke="var(--c-gold)" stroke-width="2" rx="3"/>
+                    <circle cx="50" cy="50" r="24" fill="none" stroke="var(--c-gold)" stroke-width="3"/>
+                    <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="32" font-weight="600" fill="#F5EDDC">S</text>
+                </svg>
+                <span>StampScaner</span>
+            </a>
+            <nav class="nav" data-nav>
+                <a href="index.html#services" class="nav__link">Услуги</a>
+                <a href="index.html#postman" class="nav__link">Postman</a>
+                <a href="index.html#pricing" class="nav__link">Тарифы</a>
+                <a href="cert/" class="nav__link">Реестр</a>
+            </nav>
+            <div class="controls">
+                <select class="theme-select" data-theme-select aria-label="Theme">
+                    <option value="light">☀ Light</option>
+                    <option value="sepia">⊙ Sepia</option>
+                    <option value="dark">☾ Dark</option>
+                </select>
+                <button class="control-btn mobile-toggle" data-mobile-toggle aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="legal-page">
+            <div class="container-narrow">
+
+                <div class="legal-page__hero">
+                    <div class="section-heading__eyebrow">Раннее тестирование</div>
+                    <h1>Установить StampScaner на Android</h1>
+                    <div class="legal-meta">
+                        <strong>Канал:</strong> Internal beta · <strong>Платформа:</strong> Android 7.0+ (API 24+)
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <strong>Это ранняя сборка.</strong> Распознавание сейчас отвечает демо-результатом, чат с Postman через 1–2 секунды покажет ответ-заглушку. Реальное распознавание включается с подключением backend-Worker — об этом будет отдельное уведомление в приложении. Коллекция, темы, переключение языков, переходы между экранами — работают полноценно.
+                </div>
+
+                <article class="legal-body">
+
+                    <h2>Шаг 1 · Скачать APK</h2>
+                    <p>Последний release-APK лежит в GitHub-репозитории
+                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases" target="_blank" rel="noopener">aslankaa1-droid/stampscaner-app</a>.
+                        Открыть страницу с телефона, в разделе <em>Assets</em> нажать на файл
+                        <code>app-release.apk</code>. Android спросит, разрешить ли скачивание — подтвердить.
+                    </p>
+
+                    <h2>Шаг 2 · Проверить подпись (для параноиков)</h2>
+                    <p>Это необязательно, но полезно, если APK получили не с GitHub, а через мессенджер: подделать SHA-256 в пути доставки нельзя, а значит совпадение хэша с публичным — гарантия, что файл не подменили.</p>
+                    <p>В терминале Android (через Termux) или на компьютере выполнить:</p>
+                    <pre><code>sha256sum app-release.apk</code></pre>
+                    <p>Хэш текущей сборки публикуется в разделе <em>Release notes</em> репозитория и в этом разделе после каждого обновления.</p>
+
+                    <h2>Шаг 3 · Разрешить установку из неизвестных источников</h2>
+                    <p>Android по умолчанию блокирует установку APK мимо Google Play. Это нормальная мера безопасности. Для StampScaner её нужно временно ослабить.</p>
+                    <ol>
+                        <li>Открыть <strong>Настройки</strong> → <strong>Приложения</strong> → <strong>Специальный доступ</strong> (или <strong>Дополнительно</strong>) → <strong>Установка из неизвестных источников</strong>.</li>
+                        <li>Найти приложение, через которое скачали APK (Chrome, Telegram, Файлы…) и разрешить ему устанавливать APK.</li>
+                        <li>На Android 13+ путь немного другой: <strong>Настройки</strong> → <strong>Конфиденциальность</strong> → <strong>Специальный доступ</strong> → <strong>Установка приложений из внешних источников</strong>.</li>
+                    </ol>
+
+                    <h2>Шаг 4 · Установить APK</h2>
+                    <p>Открыть скачанный <code>app-release.apk</code>. Android покажет диалог
+                        <em>«Установить это приложение?»</em>. Нажать <strong>Установить</strong>.
+                        Спустя 5–15 секунд появится диалог <em>«Готово»</em>.
+                    </p>
+
+                    <h2>Шаг 5 · Первый запуск</h2>
+                    <p>На главном экране найти иконку StampScaner (бургунди марка с буквой S). При первом открытии приложение попросит разрешения:</p>
+                    <ul>
+                        <li><strong>Камера</strong> — для распознавания марок. Можно отказать, тогда сканер будет работать только из галереи.</li>
+                        <li><strong>Хранилище / Фото</strong> — для выбора фото из галереи и сохранения локальной коллекции.</li>
+                    </ul>
+                    <p>Эти разрешения можно потом изменить в настройках Android. StampScaner никуда фото не отправляет, пока пользователь не нажмёт «Распознать» или «Заявка на сертификат».</p>
+
+                    <h2>Шаг 6 · Что попробовать</h2>
+                    <ul>
+                        <li><strong>Главная.</strong> Hero-блок, четыре быстрых действия, пустая лента «недавно распознанных».</li>
+                        <li><strong>Сканер.</strong> Нажать «Сделать снимок» → разрешить камеру → щёлкнуть любую почтовую марку. Через 1–2 секунды появится экран «Результат распознавания» с шкалой уверенности.</li>
+                        <li><strong>Коллекция.</strong> На экране результата нажать «Добавить в коллекцию». Открыть вкладку «Коллекция» — марка появится с баннером общей оценки. Свайп влево удаляет запись.</li>
+                        <li><strong>Postman.</strong> Перейти на вкладку Postman, написать любое сообщение про марку. Через 1–2 секунды появится ответ-заглушка (реальный ответ — после подключения Worker).</li>
+                        <li><strong>Сертификат.</strong> На экране результата нажать «Заказать сертификат», выбрать Pre-cert или Premium, заполнить e-mail, отправить заявку.</li>
+                        <li><strong>Профиль.</strong> Переключить тему Light/Sepia/Dark и язык RU/EN/AR — интерфейс перерисовывается мгновенно.</li>
+                    </ul>
+
+                    <h2>Решение частых проблем</h2>
+
+                    <h3>«Приложение не установлено»</h3>
+                    <p>Чаще всего — на телефоне уже стоит другая версия с тем же package id (например, debug-сборка). Удалить старую через <strong>Настройки</strong> → <strong>Приложения</strong> → <strong>StampScaner</strong> → <strong>Удалить</strong> и попробовать снова.</p>
+
+                    <h3>«Этот APK не подписан»</h3>
+                    <p>На Android 14+ release-APK обязательно должен быть подписан. Текущая сборка подписана debug-ключом — для internal beta этого достаточно, но Google может предупредить. Это нормально, продолжать установку.</p>
+
+                    <h3>Камера не запускается</h3>
+                    <p>Открыть <strong>Настройки</strong> → <strong>Приложения</strong> → <strong>StampScaner</strong> → <strong>Разрешения</strong> → включить <strong>Камера</strong>. Если разрешение уже включено — перезапустить приложение.</p>
+
+                    <h3>Краш при открытии</h3>
+                    <p>Возможные причины: устройство младше Android 7.0 (мы не поддерживаем) или закончилось место на диске. Логи можно собрать командой <code>adb logcat | grep stampscaner</code> и прислать на <a href="mailto:aslankaa@yandex.ru">aslankaa@yandex.ru</a>.</p>
+
+                    <h2>Удаление</h2>
+                    <p>Любое из:</p>
+                    <ul>
+                        <li>Долгое нажатие на иконку → <strong>Удалить</strong>.</li>
+                        <li>Настройки → Приложения → StampScaner → Удалить.</li>
+                    </ul>
+                    <p>Удаление чистит коллекцию из локальной SQLite-базы. Сделать резервную копию пока невозможно — это появится в Спринте 4 вместе с облачной синхронизацией.</p>
+
+                    <h2>Что писать о тестировании</h2>
+                    <p>Любую обратную связь — на <a href="mailto:aslankaa@yandex.ru">aslankaa@yandex.ru</a> с темой <strong>«StampScaner beta»</strong>. Полезно приложить:</p>
+                    <ul>
+                        <li>модель телефона и версию Android,</li>
+                        <li>скриншот проблемы (если есть),</li>
+                        <li>описание «что делал → что ожидал → что случилось».</li>
+                    </ul>
+
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer__bottom">
+                <div>© 2026 Кагиров Абдул-Хаким Ахмадович. Все права защищены.</div>
+                <div>
+                    <a href="index.html">Главная</a> ·
+                    <a href="terms.html">Соглашение</a> ·
+                    <a href="privacy.html">Конфиденциальность</a> ·
+                    <a href="cert/">Реестр</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
