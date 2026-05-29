@@ -67,6 +67,14 @@ const STR = {
     'install.hint': 'Установите на главный экран — будет как настоящее приложение.',
     'install.btn': 'Установить',
     'install.ios': 'На iPhone: нажмите «Поделиться» → «На экран Домой».',
+    'offline.title': 'Распознавание ИИ ещё не подключено',
+    'offline.body': 'Бэкенд распознавания (Claude Vision + Postman) ставится прямо сейчас. До его запуска приложение НЕ выдумывает результат, а честно говорит «не знаю». Что можно сделать прямо сейчас:',
+    'offline.describe': 'Описать марку Postman в чате',
+    'offline.premium': 'Очная экспертиза (Premium $199)',
+    'offline.diag': 'Технические подробности:',
+    'backend.checking': 'Проверяю связь с сервером…',
+    'backend.online': 'Сервер на связи — распознавание работает.',
+    'backend.offline': 'Сервер распознавания ещё не запущен. Скан вернёт ответ «не знаю», без выдуманных данных.',
     'common.back': 'Назад',
   },
   en: {
@@ -117,6 +125,14 @@ const STR = {
     'install.hint': 'Install to home screen — works like a native app.',
     'install.btn': 'Install',
     'install.ios': 'On iPhone: tap Share → Add to Home Screen.',
+    'offline.title': 'AI recognition is not connected yet',
+    'offline.body': 'The recognition backend (Claude Vision + Postman) is being deployed right now. Until it is live, the app will NOT make up a result — it will honestly say "do not know". What you can do right now:',
+    'offline.describe': 'Describe the stamp in Postman chat',
+    'offline.premium': 'In-person expertise (Premium $199)',
+    'offline.diag': 'Technical detail:',
+    'backend.checking': 'Checking server connection…',
+    'backend.online': 'Server online — recognition is working.',
+    'backend.offline': 'Recognition server is not running yet. Scans will return "unknown", no made-up data.',
     'common.back': 'Back',
   },
   ar: {
@@ -167,6 +183,14 @@ const STR = {
     'install.hint': 'ثبت على الشاشة الرئيسية ليعمل كتطبيق أصلي.',
     'install.btn': 'تثبيت',
     'install.ios': 'على iPhone: مشاركة → إضافة إلى الشاشة الرئيسية.',
+    'offline.title': 'لم يتم تفعيل الذكاء الاصطناعي للتعرف بعد',
+    'offline.body': 'الواجهة الخلفية للتعرف (Claude Vision + Postman) قيد النشر الآن. حتى يتم تفعيلها، التطبيق لن يخترع نتيجة — بل سيقول بصراحة «لا أعرف». ما يمكنك فعله الآن:',
+    'offline.describe': 'صف الطابع لـ Postman في الدردشة',
+    'offline.premium': 'فحص شخصي (Premium بـ 199 دولار)',
+    'offline.diag': 'تفاصيل تقنية:',
+    'backend.checking': 'جاري التحقق من الخادم…',
+    'backend.online': 'الخادم متصل — التعرف يعمل.',
+    'backend.offline': 'خادم التعرف ليس قيد التشغيل بعد. سيعود المسح بـ «غير معروف»، بدون بيانات مختلقة.',
     'common.back': 'رجوع',
   },
 };
@@ -334,39 +358,54 @@ function showProcessing() {
 
 async function identifyAndShow(file, dataURL) {
   showProcessing();
-  let result;
   try {
-    result = await identifyOnWorker(file);
+    const result = await identifyOnWorker(file);
+    result.image = dataURL;
+    lastResult = result;
+    renderIdentify(result);
+    goTab('identify');
   } catch (e) {
-    result = demoResult();
+    // Honest fallback: backend is not deployed yet. Do not invent stamp data.
+    lastResult = { image: dataURL };
+    renderBackendOffline(dataURL, e?.message || 'network');
+    goTab('identify');
   }
-  result.image = dataURL;
-  lastResult = result;
-  renderIdentify(result);
-  goTab('identify');
 }
 
 async function identifyOnWorker(file) {
   const fd = new FormData();
   fd.append('image', file);
-  const resp = await fetch(ENDPOINT_IDENTIFY, { method: 'POST', body: fd });
+  const resp = await fetch(ENDPOINT_IDENTIFY, {
+    method: 'POST',
+    body: fd,
+    signal: AbortSignal.timeout(45000),
+  });
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
-  return await resp.json();
+  const body = await resp.json();
+  if (!body || typeof body !== 'object') throw new Error('bad payload');
+  return body;
 }
 
-function demoResult() {
-  return {
-    country: 'СССР',
-    year: 1934,
-    series: 'Авиапочта · Десятилетие революции (демо)',
-    catalog_ref: 'Зг. 384',
-    grade: 'VF',
-    estimate_low: 420,
-    estimate_high: 550,
-    condition: 'Гашёная, без дефектов',
-    confidence: 0.72,
-    notes: 'Бэкенд не подключён — показан образцовый ответ.',
-  };
+function renderBackendOffline(dataURL, reason) {
+  const root = document.getElementById('identify-content');
+  root.innerHTML = `
+    ${dataURL ? `<img class="identify-img" src="${dataURL}" alt="">` : ''}
+    <div class="callout-small" style="border-inline-start-color: var(--c-warn);">
+      <strong>${escapeHtml(tr('offline.title'))}</strong><br>
+      ${escapeHtml(tr('offline.body'))}
+    </div>
+    <div class="identify-actions" style="margin-top: 18px;">
+      <button class="btn btn--primary" id="describe-in-chat">${escapeHtml(tr('offline.describe'))}</button>
+      <button class="btn btn--gold"  id="order-premium">${escapeHtml(tr('offline.premium'))}</button>
+      <button class="btn btn--ghost" id="back-scanner">${escapeHtml(tr('common.back'))}</button>
+    </div>
+    <p style="margin-top:14px; color: var(--c-text-muted); font-size:.78rem; text-align:center;">
+      ${escapeHtml(tr('offline.diag'))} <code>${escapeHtml(String(reason).slice(0, 60))}</code>
+    </p>
+  `;
+  document.getElementById('describe-in-chat').addEventListener('click', () => goTab('postman'));
+  document.getElementById('order-premium').addEventListener('click', () => goTab('certificate'));
+  document.getElementById('back-scanner').addEventListener('click', () => goTab('scanner'));
 }
 
 function renderIdentify(r) {
@@ -525,7 +564,7 @@ async function submitCert(e) {
   const notes = document.getElementById('cert-notes').value.trim();
   const tier  = document.querySelector('input[name="tier"]:checked').value;
   if (!email) return;
-  const stamp = lastResult || demoResult();
+  const stamp = lastResult || { notes: 'Заявка без идентифицированной марки.' };
   try {
     await fetch(ENDPOINT_CERT, {
       method: 'POST',
@@ -558,40 +597,118 @@ function escapeHtml(s) {
 }
 
 // ---------- Install prompt ----------
+const INSTALL_DISMISSED_KEY = 'stampscaner.app.installPromptDismissed';
 let deferredPrompt = null;
+
+function isStandalone() {
+  // PWA running mode — iOS Safari uses navigator.standalone, others use display-mode.
+  return Boolean(
+    window.navigator.standalone ||
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    (window.matchMedia && window.matchMedia('(display-mode: fullscreen)').matches) ||
+    (window.matchMedia && window.matchMedia('(display-mode: minimal-ui)').matches)
+  );
+}
+
+function dismissedForever() {
+  try { return localStorage.getItem(INSTALL_DISMISSED_KEY) === '1'; }
+  catch (e) { return false; }
+}
+
+function markDismissed() {
+  try { localStorage.setItem(INSTALL_DISMISSED_KEY, '1'); }
+  catch (e) {}
+}
+
+function hidePrompt() {
+  const promptEl = document.getElementById('install-prompt');
+  if (promptEl) promptEl.hidden = true;
+}
+
 function setupInstall() {
   const promptEl = document.getElementById('install-prompt');
   const btn = document.getElementById('install-btn');
   const closeBtn = document.getElementById('install-close');
+  if (!promptEl) return;
+
+  // Hard skip if already installed or user previously dismissed.
+  if (isStandalone() || dismissedForever()) {
+    hidePrompt();
+    // Still attach appinstalled handler in case of late install.
+    window.addEventListener('appinstalled', () => { markDismissed(); hidePrompt(); });
+    return;
+  }
 
   window.addEventListener('beforeinstallprompt', e => {
+    if (dismissedForever() || isStandalone()) return;
     e.preventDefault();
     deferredPrompt = e;
     promptEl.hidden = false;
   });
 
-  btn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    }
-    promptEl.hidden = true;
+  // Fires after the user accepts the OS-level install dialog. We hide ourselves
+  // and remember the dismissal so we never bother them again.
+  window.addEventListener('appinstalled', () => {
+    deferredPrompt = null;
+    markDismissed();
+    hidePrompt();
   });
 
-  closeBtn.addEventListener('click', () => promptEl.hidden = true);
+  // Also hide if the display mode flips to standalone while the page is open.
+  if (window.matchMedia) {
+    window.matchMedia('(display-mode: standalone)').addEventListener?.('change', e => {
+      if (e.matches) { markDismissed(); hidePrompt(); }
+    });
+  }
 
-  // iOS prompt
-  const ua = navigator.userAgent;
+  btn?.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      try { await deferredPrompt.userChoice; } catch (e) {}
+      deferredPrompt = null;
+    }
+    markDismissed();
+    hidePrompt();
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    markDismissed();
+    hidePrompt();
+  });
+
+  // iOS-only hint: shown once, then never again (markDismissed on close).
+  const ua = navigator.userAgent || '';
   const isiOS = /iphone|ipad|ipod/i.test(ua);
-  const standalone = window.navigator.standalone || matchMedia('(display-mode: standalone)').matches;
-  if (isiOS && !standalone) {
+  if (isiOS && !isStandalone() && !dismissedForever()) {
     setTimeout(() => {
-      const node = document.getElementById('install-prompt');
-      node.querySelector('span').textContent = tr('install.ios');
-      node.querySelector('#install-btn').hidden = true;
-      node.hidden = false;
-    }, 4000);
+      if (isStandalone() || dismissedForever()) return;
+      const span = promptEl.querySelector('span');
+      if (span) span.textContent = tr('install.ios');
+      if (btn) btn.hidden = true;
+      promptEl.hidden = false;
+    }, 4500);
+  }
+}
+
+// ---------- Backend health check ----------
+async function checkBackendHealth() {
+  const banner = document.getElementById('backend-banner');
+  if (!banner) return;
+  banner.textContent = tr('backend.checking');
+  banner.dataset.state = 'checking';
+  try {
+    const resp = await fetch(API_BASE + '/v1/healthz', {
+      signal: AbortSignal.timeout(6000),
+      cache: 'no-store',
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    banner.textContent = tr('backend.online');
+    banner.dataset.state = 'online';
+    setTimeout(() => banner.hidden = true, 1800);
+  } catch (e) {
+    banner.textContent = tr('backend.offline');
+    banner.dataset.state = 'offline';
+    banner.hidden = false;
   }
 }
 
@@ -645,6 +762,7 @@ function init() {
 
   setupInstall();
   renderRecent();
+  checkBackendHealth();
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});

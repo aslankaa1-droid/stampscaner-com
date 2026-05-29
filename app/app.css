@@ -639,6 +639,31 @@ body.pwa {
 }
 [data-theme="dark"] .pwa-nav__item.is-active { color: var(--c-burgundy-soft); }
 
+/* --------- Backend health banner --------- */
+.backend-banner {
+    margin: 12px 18px 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    text-align: center;
+    line-height: 1.45;
+}
+.backend-banner[data-state="checking"] {
+    background: var(--c-bg-deep);
+    color: var(--c-text-muted);
+    border: 1px solid var(--c-border-soft);
+}
+.backend-banner[data-state="online"] {
+    background: color-mix(in srgb, var(--c-success, #5E7C3F) 14%, var(--c-bg-elevated));
+    color: var(--c-success, #5E7C3F);
+    border: 1px solid color-mix(in srgb, var(--c-success, #5E7C3F) 32%, transparent);
+}
+.backend-banner[data-state="offline"] {
+    background: color-mix(in srgb, var(--c-warn, #B86A2C) 14%, var(--c-bg-elevated));
+    color: var(--c-warn, #B86A2C);
+    border: 1px solid color-mix(in srgb, var(--c-warn, #B86A2C) 32%, transparent);
+}
+
 /* --------- Install prompt --------- */
 .install-prompt {
     position: fixed;
