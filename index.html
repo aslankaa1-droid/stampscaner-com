@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6B1F2E">
+    <meta name="description" content="StampScaner — премиальная экспертиза почтовых марок мира.">
+    <meta name="author" content="Кагиров Абдул-Хаким Ахмадович (Аслан Каа)">
+
+    <title>StampScaner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='12' width='80' height='76' fill='%236B1F2E' stroke='%23B8924C' stroke-width='2' rx='2'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%23B8924C' stroke-width='3'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='serif' font-size='28' font-weight='600' fill='%23F5EDDC'%3ES%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="#top" class="brand">
+                <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect x="6" y="8" width="88" height="84" fill="var(--c-burgundy)" stroke="var(--c-gold)" stroke-width="2" rx="3"/>
+                    <circle cx="50" cy="50" r="24" fill="none" stroke="var(--c-gold)" stroke-width="3"/>
+                    <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="32" font-weight="600" fill="#F5EDDC">S</text>
+                </svg>
+                <span>StampScaner</span>
+            </a>
+
+            <nav class="nav" data-nav>
+                <a href="#services" class="nav__link" data-i18n="nav.services">Услуги</a>
+                <a href="#postman" class="nav__link" data-i18n="nav.postman">Агент Postman</a>
+                <a href="#certificate" class="nav__link" data-i18n="nav.certificate">Сертификат</a>
+                <a href="#pricing" class="nav__link" data-i18n="nav.pricing">Тарифы</a>
+                <a href="#founder" class="nav__link" data-i18n="nav.about">Об основателе</a>
+                <a href="#cta-final" class="nav__link" data-i18n="nav.contact">Контакты</a>
+            </nav>
+
+            <div class="controls">
+                <select class="lang-select" data-lang-select aria-label="Language">
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                    <option value="ar">AR</option>
+                </select>
+                <select class="theme-select" data-theme-select aria-label="Theme">
+                    <option value="light">☀ Light</option>
+                    <option value="sepia">⊙ Sepia</option>
+                    <option value="dark">☾ Dark</option>
+                </select>
+                <button class="control-btn mobile-toggle" data-mobile-toggle aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="top">
+
+        <!-- ============ HERO ============ -->
+        <section class="hero">
+            <div class="container hero__inner">
+                <div class="hero__copy" data-reveal>
+                    <span class="hero__eyebrow" data-i18n="hero.eyebrow">Экспертиза · Сертификация · Маркетплейс</span>
+                    <h1 class="hero__title">
+                        <span data-i18n="hero.title.before">Почтовая марка —</span>
+                        <em data-i18n="hero.title.em">это история, ценность и наследие.</em>
+                        <span data-i18n="hero.title.after">Мы помогаем её сохранить.</span>
+                    </h1>
+                    <p class="hero__lead" data-i18n="hero.lead">StampScaner — премиальный экспертный сервис...</p>
+                    <div class="hero__actions">
+                        <a href="#pricing" class="btn btn--primary btn--lg" data-i18n="hero.cta.primary">Получить сертификат</a>
+                        <a href="#cta-final" class="btn btn--ghost btn--lg" data-i18n="hero.cta.secondary">Распознать марку бесплатно</a>
+                    </div>
+                </div>
+
+                <div class="hero__visual" data-reveal>
+                    <div class="stamp-frame">
+                        <div class="stamp-frame__cert-badge">
+                            <span data-i18n="hero.stamp.badge.line1">СЕРТ.</span>
+                            <span data-i18n="hero.stamp.badge.line2">АСЛАН КАА</span>
+                        </div>
+                        <div class="stamp-frame__inner">
+                            <div class="stamp-frame__country" data-i18n="hero.stamp.country">STAMPSCANER</div>
+                            <div>
+                                <div class="stamp-frame__title" data-i18n="hero.stamp.title">Экспертиза XIX–XXI вв.</div>
+                                <div class="stamp-frame__denomination">$199</div>
+                            </div>
+                            <div class="stamp-frame__year" data-i18n="hero.stamp.year">С 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SERVICES ============ -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-heading" data-reveal>
+                    <div class="section-heading__eyebrow" data-i18n="services.eyebrow">Что мы делаем</div>
+                    <h2 data-i18n="services.title">Полный цикл работы коллекционера</h2>
+                    <p class="section-heading__lead" data-i18n="services.lead">Каждая услуга подкреплена нашей репутацией...</p>
+                </div>
+
+                <div class="services__grid">
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">📷</div>
+                        <h3 class="service-card__title" data-i18n="services.identify.title">Распознавание марки</h3>
+                        <p class="service-card__desc" data-i18n="services.identify.desc">Сфотографируйте марку...</p>
+                        <span class="service-card__free" data-i18n="services.identify.badge">Бесплатно</span>
+                    </article>
+
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">📋</div>
+                        <h3 class="service-card__title" data-i18n="services.info.title">Полный пакет документов</h3>
+                        <p class="service-card__desc" data-i18n="services.info.desc">Подробное досье...</p>
+                        <span class="service-card__price" data-i18n="services.info.price">от $9</span>
+                    </article>
+
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">🏛</div>
+                        <h3 class="service-card__title" data-i18n="services.cert.title">Цифровой сертификат</h3>
+                        <p class="service-card__desc" data-i18n="services.cert.desc">Официальный сертификат...</p>
+                        <span class="service-card__price" data-i18n="services.cert.price">от $199</span>
+                    </article>
+
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">⚖</div>
+                        <h3 class="service-card__title" data-i18n="services.market.title">Маркетплейс с эскроу</h3>
+                        <p class="service-card__desc" data-i18n="services.market.desc">Продажа и покупка марок...</p>
+                        <span class="service-card__price" data-i18n="services.market.price">8–12% комиссия</span>
+                    </article>
+
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">💎</div>
+                        <h3 class="service-card__title" data-i18n="services.appraisal.title">Оценка коллекций</h3>
+                        <p class="service-card__desc" data-i18n="services.appraisal.desc">От одной марки до полных коллекций...</p>
+                        <span class="service-card__price" data-i18n="services.appraisal.price">от $99</span>
+                    </article>
+
+                    <article class="service-card" data-reveal>
+                        <div class="service-card__icon">🛡</div>
+                        <h3 class="service-card__title" data-i18n="services.insurance.title">Страхование марок и сделок</h3>
+                        <p class="service-card__desc" data-i18n="services.insurance.desc">Полис на коллекцию...</p>
+                        <span class="service-card__price" data-i18n="services.insurance.price">от 1% в год</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ POSTMAN AGENT ============ -->
+        <section class="postman" id="postman">
+            <div class="container">
+                <div class="postman__inner">
+                    <div data-reveal>
+                        <div class="postman__eyebrow" data-i18n="postman.eyebrow">ИИ-Агент Postman</div>
+                        <h2 data-i18n="postman.title">Мировой эксперт-филателист.</h2>
+                        <p class="postman__lead" data-i18n="postman.lead">Postman — наш собственный ИИ-Агент...</p>
+
+                        <ul class="postman__attrs">
+                            <li class="postman__attr" data-i18n="postman.attr.expert">Уровень RDP / AIEP / FIP — мировой стандарт</li>
+                            <li class="postman__attr" data-i18n="postman.attr.languages">RU · EN · AR · FR · CN</li>
+                            <li class="postman__attr" data-i18n="postman.attr.catalogs">Все мировые каталоги-эталоны</li>
+                            <li class="postman__attr" data-i18n="postman.attr.auctions">Цены аукционов с 1996 года</li>
+                            <li class="postman__attr" data-i18n="postman.attr.defense">Защитная экспертиза подделок</li>
+                            <li class="postman__attr" data-i18n="postman.attr.update">Еженедельное обновление знаний</li>
+                        </ul>
+
+                        <a href="#pricing" class="btn btn--gold btn--lg" data-i18n="hero.cta.primary">Получить сертификат</a>
+                    </div>
+
+                    <div class="chat-preview" data-reveal>
+                        <div class="chat-preview__header">
+                            <div class="chat-preview__avatar">P</div>
+                            <div>
+                                <div class="chat-preview__name" data-i18n="postman.chat.title">Postman</div>
+                                <div class="chat-preview__status" data-i18n="postman.chat.status">На связи · отвечает за 3–5 секунд</div>
+                            </div>
+                        </div>
+
+                        <div class="chat-preview__msg chat-preview__msg--user" data-i18n="postman.chat.msg1">У меня старая марка СССР, синяя, с самолётом. Как определить?</div>
+                        <div class="chat-preview__msg chat-preview__msg--postman" data-i18n="postman.chat.msg2">Похоже на серию «Авиапочта СССР»...</div>
+
+                        <div class="chat-preview__input">
+                            <input class="chat-preview__field" type="text" placeholder="..." data-i18n-attr="placeholder:postman.chat.field" aria-label="Message">
+                            <button class="chat-preview__send" data-postman-send data-i18n="postman.chat.send">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CERTIFICATE ============ -->
+        <section class="certificate" id="certificate">
+            <div class="container">
+                <div class="section-heading" data-reveal>
+                    <div class="section-heading__eyebrow" data-i18n="cert.eyebrow">Цифровой сертификат</div>
+                    <h2 data-i18n="cert.title">Документ, на который можно опереться.</h2>
+                    <p class="section-heading__lead" data-i18n="cert.lead">Каждый сертификат — официальное заключение...</p>
+                </div>
+
+                <div class="certificate__inner">
+                    <div class="certificate__doc" data-reveal>
+                        <div class="certificate__doc-header">
+                            <div class="certificate__doc-title" data-i18n="cert.doc.title">Сертификат подлинности</div>
+                            <div class="certificate__doc-sub">
+                                <span data-i18n="cert.doc.sub">STAMPSCANER · Реестр №</span>
+                                <span> 2026-000001</span>
+                            </div>
+                        </div>
+
+                        <div class="certificate__doc-body">
+                            <div class="certificate__doc-row">
+                                <span data-i18n="cert.doc.row1.label">Марка</span>
+                                <span data-i18n="cert.doc.row1.value">Авиапочта СССР</span>
+                            </div>
+                            <div class="certificate__doc-row">
+                                <span data-i18n="cert.doc.row2.label">Год</span>
+                                <span data-i18n="cert.doc.row2.value">1934</span>
+                            </div>
+                            <div class="certificate__doc-row">
+                                <span data-i18n="cert.doc.row3.label">Каталог</span>
+                                <span data-i18n="cert.doc.row3.value">Зг. 384</span>
+                            </div>
+                            <div class="certificate__doc-row">
+                                <span data-i18n="cert.doc.row4.label">Грейд APS</span>
+                                <span data-i18n="cert.doc.row4.value">VF — Very Fine</span>
+                            </div>
+                            <div class="certificate__doc-row">
+                                <span data-i18n="cert.doc.row5.label">Оценка</span>
+                                <span data-i18n="cert.doc.row5.value">$420–550</span>
+                            </div>
+                        </div>
+
+                        <div class="certificate__doc-footer">
+                            <div>
+                                <div class="certificate__signature">Aslan Kaa</div>
+                                <div class="certificate__sig-name" data-i18n="cert.doc.sig.name">Аслан Каа · Основатель</div>
+                            </div>
+                            <div class="certificate__qr" aria-label="QR"></div>
+                        </div>
+                    </div>
+
+                    <ul class="certificate__features" data-reveal>
+                        <li>
+                            <div>
+                                <strong data-i18n="cert.feature1.title">Подпись основателя</strong>
+                                <p data-i18n="cert.feature1.desc">Каждый сертификат содержит цифровую подпись...</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong data-i18n="cert.feature2.title">Страховое покрытие $1000</strong>
+                                <p data-i18n="cert.feature2.desc">При полном несоответствии информации...</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong data-i18n="cert.feature3.title">Публичный реестр + QR</strong>
+                                <p data-i18n="cert.feature3.desc">Запись в открытом реестре...</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong data-i18n="cert.feature4.title">Грейд по шкале APS</strong>
+                                <p data-i18n="cert.feature4.desc">Состояние оценивается по международному стандарту...</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PRICING ============ -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <div class="section-heading" data-reveal>
+                    <div class="section-heading__eyebrow" data-i18n="pricing.eyebrow">Тарифы</div>
+                    <h2 data-i18n="pricing.title">Без подписок. Платите только за то, что нужно.</h2>
+                    <p class="section-heading__lead" data-i18n="pricing.lead">Premium-сервис устроен по принципу разовых оплат...</p>
+                </div>
+
+                <div class="pricing__toggle">
+                    <button class="pricing__toggle-btn active" data-pricing-toggle="usd" data-i18n="pricing.toggle.usd">USD</button>
+                    <button class="pricing__toggle-btn" data-pricing-toggle="rub" data-i18n="pricing.toggle.rub">RUB</button>
+                </div>
+
+                <div class="pricing__grid">
+                    <article class="price-card" data-price-card data-reveal>
+                        <h3 class="price-card__title" data-i18n="pricing.card1.title">Распознавание + базовая инфо</h3>
+                        <p class="price-card__sub" data-i18n="pricing.card1.sub">Стартовый сценарий каждого коллекционера</p>
+                        <div class="price-card__amount">
+                            <span class="price-card__currency" data-currency="usd">$</span>
+                            <span class="price-card__currency" data-currency="rub" hidden>₽</span>
+                            <span class="price-card__value" data-currency="usd" data-i18n="pricing.card1.amount.usd">0</span>
+                            <span class="price-card__value" data-currency="rub" data-i18n="pricing.card1.amount.rub" hidden>0</span>
+                            <span class="price-card__period" data-i18n="pricing.card1.period">/ навсегда</span>
+                        </div>
+                        <ul class="price-card__features">
+                            <li data-i18n="pricing.card1.f1">AI-распознавание марки по фото</li>
+                            <li data-i18n="pricing.card1.f2">Страна, год, серия, каталог №</li>
+                            <li data-i18n="pricing.card1.f3">Оценочная стоимость диапазоном</li>
+                            <li data-i18n="pricing.card1.f4">Личная коллекция (до 100 марок)</li>
+                        </ul>
+                        <a href="#cta-final" class="btn btn--ghost" data-i18n="pricing.card1.cta">Начать в приложении</a>
+                    </article>
+
+                    <article class="price-card" data-price-card data-reveal>
+                        <h3 class="price-card__title" data-i18n="pricing.card2.title">Полный пакет документов</h3>
+                        <p class="price-card__sub" data-i18n="pricing.card2.sub">Досье на одну марку</p>
+                        <div class="price-card__amount">
+                            <span class="price-card__currency" data-currency="usd">$</span>
+                            <span class="price-card__currency" data-currency="rub" hidden>₽</span>
+                            <span class="price-card__value" data-currency="usd" data-i18n="pricing.card2.amount.usd">9</span>
+                            <span class="price-card__value" data-currency="rub" data-i18n="pricing.card2.amount.rub" hidden>800</span>
+                            <span class="price-card__period" data-i18n="pricing.card2.period">/ марка</span>
+                        </div>
+                        <ul class="price-card__features">
+                            <li data-i18n="pricing.card2.f1">Подробное описание + история</li>
+                            <li data-i18n="pricing.card2.f2">Cross-reference 4 каталогов</li>
+                            <li data-i18n="pricing.card2.f3">Ценовой анализ за 24 месяца</li>
+                            <li data-i18n="pricing.card2.f4">Рекомендации владельцу</li>
+                            <li data-i18n="pricing.card2.f5">PDF-отчёт за 24 часа</li>
+                        </ul>
+                        <a href="#cta-final" class="btn btn--ghost" data-i18n="pricing.card2.cta">Заказать пакет</a>
+                    </article>
+
+                    <article class="price-card price-card--featured" data-price-card data-reveal>
+                        <span class="price-card__tag" data-i18n="pricing.card3.tag">Флагман</span>
+                        <h3 class="price-card__title" data-i18n="pricing.card3.title">Сертификат · Premium</h3>
+                        <p class="price-card__sub" data-i18n="pricing.card3.sub">С очной экспертизой и страховкой $1000</p>
+                        <div class="price-card__amount">
+                            <span class="price-card__currency" data-currency="usd">$</span>
+                            <span class="price-card__currency" data-currency="rub" hidden>₽</span>
+                            <span class="price-card__value" data-currency="usd" data-i18n="pricing.card3.amount.usd">199</span>
+                            <span class="price-card__value" data-currency="rub" data-i18n="pricing.card3.amount.rub" hidden>18 000</span>
+                            <span class="price-card__period" data-i18n="pricing.card3.period">/ марка</span>
+                        </div>
+                        <ul class="price-card__features">
+                            <li data-i18n="pricing.card3.f1">Очная экспертиза в лаборатории</li>
+                            <li data-i18n="pricing.card3.f2">Подпись основателя + ED25519</li>
+                            <li data-i18n="pricing.card3.f3">Страховое покрытие $1000</li>
+                            <li data-i18n="pricing.card3.f4">Публичный реестр + QR-код</li>
+                            <li data-i18n="pricing.card3.f5">Печатная версия +$29</li>
+                        </ul>
+                        <a href="#cta-final" class="btn btn--gold" data-i18n="pricing.card3.cta">Подать заявку</a>
+                    </article>
+
+                    <article class="price-card" data-price-card data-reveal>
+                        <h3 class="price-card__title" data-i18n="pricing.card4.title">Сертификат · Pre-cert</h3>
+                        <p class="price-card__sub" data-i18n="pricing.card4.sub">Только AI-анализ, без очной экспертизы</p>
+                        <div class="price-card__amount">
+                            <span class="price-card__currency" data-currency="usd">$</span>
+                            <span class="price-card__currency" data-currency="rub" hidden>₽</span>
+                            <span class="price-card__value" data-currency="usd" data-i18n="pricing.card4.amount.usd">19</span>
+                            <span class="price-card__value" data-currency="rub" data-i18n="pricing.card4.amount.rub" hidden>1 700</span>
+                            <span class="price-card__period" data-i18n="pricing.card4.period">/ марка</span>
+                        </div>
+                        <ul class="price-card__features">
+                            <li data-i18n="pricing.card4.f1">AI-пре-скрининг подлинности</li>
+                            <li data-i18n="pricing.card4.f2">PDF за 24 часа</li>
+                            <li data-i18n="pricing.card4.f3">Запись в реестр с пометкой Pre-cert</li>
+                            <li data-i18n="pricing.card4.f4">Без страхового покрытия</li>
+                            <li data-i18n="pricing.card4.f5">Апгрейд до Premium доступен</li>
+                        </ul>
+                        <a href="#cta-final" class="btn btn--ghost" data-i18n="pricing.card4.cta">Получить Pre-cert</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TRUST ============ -->
+        <section class="trust">
+            <div class="container">
+                <div class="section-heading" data-reveal>
+                    <div class="section-heading__eyebrow" data-i18n="trust.eyebrow">Доверие и легальность</div>
+                    <h2 data-i18n="trust.title">Мы строим сервис, на который не стыдно опереться.</h2>
+                    <p class="section-heading__lead" data-i18n="trust.lead">Юридическая чистота...</p>
+                </div>
+
+                <div class="trust__grid">
+                    <div class="trust__item" data-reveal>
+                        <div class="trust__item-icon">📚</div>
+                        <h4 data-i18n="trust.item1.title">Легальные источники</h4>
+                        <p data-i18n="trust.item1.desc">База — Wikidata, Wikimedia Commons...</p>
+                    </div>
+                    <div class="trust__item" data-reveal>
+                        <div class="trust__item-icon">🔓</div>
+                        <h4 data-i18n="trust.item2.title">Открытый реестр</h4>
+                        <p data-i18n="trust.item2.desc">Каждый сертификат публикуется...</p>
+                    </div>
+                    <div class="trust__item" data-reveal>
+                        <div class="trust__item-icon">🔒</div>
+                        <h4 data-i18n="trust.item3.title">152-ФЗ и GDPR</h4>
+                        <p data-i18n="trust.item3.desc">Оператор персональных данных...</p>
+                    </div>
+                    <div class="trust__item" data-reveal>
+                        <div class="trust__item-icon">🛡</div>
+                        <h4 data-i18n="trust.item4.title">Защитная экспертиза</h4>
+                        <p data-i18n="trust.item4.desc">Postman не учит подделывать...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FOUNDER ============ -->
+        <section class="founder" id="founder">
+            <div class="container">
+                <div class="founder__inner">
+                    <div class="founder__portrait" data-reveal>А</div>
+                    <div data-reveal>
+                        <div class="section-heading__eyebrow" data-i18n="founder.eyebrow">Об основателе</div>
+                        <h2 data-i18n="founder.title">Аслан Каа</h2>
+                        <div class="founder__role" data-i18n="founder.role">Основатель StampScaner</div>
+                        <p data-i18n="founder.bio">Кагиров Абдул-Хаким Ахмадович...</p>
+                        <a href="https://aslankaa.com" class="btn btn--ghost mt-md" target="_blank" rel="noopener" data-i18n="founder.cta">Перейти на личный сайт</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA FINAL ============ -->
+        <section class="cta-final" id="cta-final">
+            <div class="container-narrow">
+                <h2 data-i18n="cta.title">Готовы начать?</h2>
+                <p data-i18n="cta.lead">Скачайте приложение, опробуйте бесплатное распознавание...</p>
+
+                <div class="cta-final__actions">
+                    <a href="#" class="btn btn--gold btn--lg" data-i18n="cta.android">Android · скоро</a>
+                    <a href="#" class="btn btn--gold btn--lg" data-i18n="cta.ios">iOS · скоро</a>
+                </div>
+
+                <div class="cta-final__contacts">
+                    <a class="cta-final__contact" href="mailto:aslankaa@yandex.ru">✉ <span data-i18n="cta.contact.email">aslankaa@yandex.ru</span></a>
+                    <a class="cta-final__contact" href="https://t.me/aslankaa" target="_blank" rel="noopener">✈ <span data-i18n="cta.contact.tg">Telegram</span></a>
+                    <a class="cta-final__contact" href="https://wa.me/79000000000" target="_blank" rel="noopener">📱 <span data-i18n="cta.contact.wa">WhatsApp</span></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="legal-disclaimer" data-i18n="footer.legal.disclaimer">
+                Внимание: StampScaner — самостоятельная инициатива основателя...
+            </div>
+
+            <div class="site-footer__top">
+                <div class="site-footer__col site-footer__about">
+                    <div class="brand">
+                        <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                            <rect x="6" y="8" width="88" height="84" fill="var(--c-burgundy)" stroke="var(--c-gold)" stroke-width="2" rx="3"/>
+                            <circle cx="50" cy="50" r="24" fill="none" stroke="var(--c-gold)" stroke-width="3"/>
+                            <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="32" font-weight="600" fill="#F5EDDC">S</text>
+                        </svg>
+                        StampScaner
+                    </div>
+                    <p data-i18n="footer.tagline">Премиальная экспертиза почтовых марок мира.</p>
+                </div>
+
+                <div class="site-footer__col">
+                    <h4 data-i18n="nav.services">Услуги</h4>
+                    <ul>
+                        <li><a href="#services" data-i18n="services.identify.title">Распознавание</a></li>
+                        <li><a href="#certificate" data-i18n="services.cert.title">Сертификат</a></li>
+                        <li><a href="#services" data-i18n="services.market.title">Маркетплейс</a></li>
+                        <li><a href="#services" data-i18n="services.insurance.title">Страхование</a></li>
+                    </ul>
+                </div>
+
+                <div class="site-footer__col">
+                    <h4 data-i18n="nav.about">Об основателе</h4>
+                    <ul>
+                        <li><a href="#founder" data-i18n="founder.title">Аслан Каа</a></li>
+                        <li><a href="https://aslankaa.com" target="_blank" rel="noopener" data-i18n="founder.cta">Личный сайт</a></li>
+                        <li><a href="cert/" data-i18n="footer.cert.registry">Реестр сертификатов</a></li>
+                        <li><a href="#" data-i18n="footer.news">Новости филателии</a></li>
+                    </ul>
+                </div>
+
+                <div class="site-footer__col">
+                    <h4 data-i18n="nav.contact">Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:aslankaa@yandex.ru">aslankaa@yandex.ru</a></li>
+                        <li><a href="https://t.me/aslankaa" target="_blank" rel="noopener">Telegram</a></li>
+                        <li><a href="terms.html" data-i18n="footer.terms">Пользовательское соглашение</a></li>
+                        <li><a href="privacy.html" data-i18n="footer.privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="site-footer__bottom">
+                <div data-i18n="footer.copyright">© 2026 Кагиров Абдул-Хаким Ахмадович. Все права защищены.</div>
+                <div data-i18n="footer.copyright.tagline">Сайт построен на собственной инфраструктуре, без аналитики и форм сбора данных без явного согласия пользователя.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
