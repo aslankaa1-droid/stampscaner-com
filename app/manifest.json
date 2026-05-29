@@ -1,0 +1,33 @@
+{
+  "name": "StampScaner",
+  "short_name": "StampScaner",
+  "description": "Премиальная экспертиза почтовых марок — распознавание, оценка, сертификат.",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8F2E4",
+  "theme_color": "#6B1F2E",
+  "categories": ["productivity", "lifestyle", "education"],
+  "lang": "ru",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Сканировать марку",
+      "short_name": "Сканер",
+      "description": "Открыть камеру и распознать марку",
+      "url": "/app/?tab=scanner",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Postman",
+      "description": "Чат с экспертом-филателистом",
+      "url": "/app/?tab=postman",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#6B1F2E" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1A1410" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="StampScaner mobile — распознай марку, веди коллекцию, спроси Postman, закажи сертификат.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="StampScaner">
+    <title>StampScaner</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-apple-180.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body class="pwa">
+
+    <header class="pwa-header">
+        <div class="pwa-header__title" id="page-title">StampScaner</div>
+        <button class="pwa-header__action" data-open-profile aria-label="Профиль">⚙</button>
+    </header>
+
+    <main class="pwa-main">
+
+        <!-- ============ HOME ============ -->
+        <section class="pwa-tab pwa-tab--active" data-tab="home">
+            <div class="hero-card">
+                <div class="hero-card__eyebrow" data-i18n="home.eyebrow">МАРКА В РУКАХ — ВОПРОС НА 2 СЕКУНДЫ</div>
+                <h1 data-i18n="home.title">Сфотографируйте марку.</h1>
+                <p data-i18n="home.lead">Postman ответит, какая страна, год, серия, каталожный номер и сколько она стоит.</p>
+                <button class="btn btn--gold btn--lg" data-go="scanner" data-i18n="home.cta">Открыть сканер</button>
+            </div>
+
+            <div class="quick-grid">
+                <a class="quick-tile" data-go="scanner">
+                    <span class="quick-tile__icon">📷</span>
+                    <span data-i18n="nav.scanner">Сканер</span>
+                </a>
+                <a class="quick-tile" data-go="postman">
+                    <span class="quick-tile__icon">💬</span>
+                    <span data-i18n="nav.postman">Postman</span>
+                </a>
+                <a class="quick-tile" data-go="certificate">
+                    <span class="quick-tile__icon">📜</span>
+                    <span data-i18n="home.tile.cert">Сертификат</span>
+                </a>
+                <a class="quick-tile" data-go="collection">
+                    <span class="quick-tile__icon">📚</span>
+                    <span data-i18n="nav.collection">Коллекция</span>
+                </a>
+            </div>
+
+            <section class="pwa-section">
+                <h2 data-i18n="home.recent.title">Недавно распознанные</h2>
+                <div class="recent-list" id="recent-list">
+                    <div class="empty-state" data-i18n="home.recent.empty">
+                        Здесь появятся марки, которые вы распознали.
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- ============ SCANNER ============ -->
+        <section class="pwa-tab" data-tab="scanner">
+            <div class="scanner-pane">
+                <div class="scanner-frame" id="scanner-frame">
+                    <div class="scanner-frame__hint" id="scanner-hint" data-i18n="scanner.hint">
+                        Наведите камеру на марку и нажмите кнопку. Свет должен быть ровный, без вспышки.
+                    </div>
+                </div>
+                <input type="file" accept="image/*" capture="environment" id="camera-input" hidden>
+                <input type="file" accept="image/*" id="gallery-input" hidden>
+
+                <div class="scanner-actions">
+                    <button class="btn btn--ghost" data-pick-gallery data-i18n="scanner.gallery">Из галереи</button>
+                    <button class="btn btn--gold" data-pick-camera data-i18n="scanner.capture">Сделать снимок</button>
+                </div>
+
+                <p class="scanner-note" data-i18n="scanner.note">
+                    Бесплатная идентификация — справочный ответ. Для документа на сделку оформите сертификат.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ IDENTIFY RESULT (modal-ish) ============ -->
+        <section class="pwa-tab" data-tab="identify">
+            <button class="back-btn" data-go="scanner" aria-label="Назад">← <span data-i18n="common.back">Назад</span></button>
+
+            <div id="identify-content">
+                <!-- filled dynamically -->
+            </div>
+        </section>
+
+        <!-- ============ COLLECTION ============ -->
+        <section class="pwa-tab" data-tab="collection">
+            <div class="collection-banner" id="collection-banner" hidden>
+                <div>
+                    <div class="collection-banner__label" data-i18n="collection.total">Общая оценка</div>
+                    <div class="collection-banner__value" id="collection-total">$0</div>
+                </div>
+                <div class="collection-banner__count" id="collection-count">0 <span data-i18n="collection.items">предметов</span></div>
+            </div>
+            <div class="collection-list" id="collection-list">
+                <div class="empty-state" data-i18n="collection.empty">
+                    Коллекция пуста. Распознайте первую марку — она появится здесь.
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ POSTMAN ============ -->
+        <section class="pwa-tab" data-tab="postman">
+            <div class="postman-pane">
+                <div class="postman-header">
+                    <div class="postman-avatar">P</div>
+                    <div>
+                        <div class="postman-name">Postman</div>
+                        <div class="postman-status" data-i18n="postman.status">Эксперт-филателист уровня RDP/AIEP</div>
+                    </div>
+                </div>
+
+                <div class="postman-thread" id="postman-thread">
+                    <div class="bubble bubble--postman" data-i18n="postman.welcome">
+                        Здравствуйте. Я Postman — эксперт мирового уровня. Покажите марку (или опишите) — определю страну, год, серию, дам оценку и проверю на признаки подделки.
+                    </div>
+                </div>
+
+                <div class="postman-input">
+                    <textarea id="postman-field" rows="1" placeholder="Опишите марку или вопрос…" data-i18n-attr="placeholder:postman.placeholder"></textarea>
+                    <button class="btn btn--gold" id="postman-send" data-i18n="postman.send">Отправить</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CERTIFICATE ============ -->
+        <section class="pwa-tab" data-tab="certificate">
+            <div class="cert-pane">
+                <h1 data-i18n="cert.title">Заявка на сертификат</h1>
+                <p data-i18n="cert.intro">
+                    Сертификат за подписью Аслана Каа. Premium включает страховое покрытие $1000 при условии очной экспертизы и личной передачи.
+                </p>
+
+                <label class="tier-card" data-tier="precert">
+                    <input type="radio" name="tier" value="precert" checked>
+                    <div class="tier-card__body">
+                        <div class="tier-card__head">
+                            <strong>Pre-cert</strong>
+                            <span class="tier-card__price">$19</span>
+                        </div>
+                        <p data-i18n="cert.precert.body">AI-анализ Postman, PDF за 24 часа, без страхового покрытия.</p>
+                    </div>
+                </label>
+
+                <label class="tier-card" data-tier="premium">
+                    <input type="radio" name="tier" value="premium">
+                    <div class="tier-card__body">
+                        <div class="tier-card__head">
+                            <strong>Premium</strong>
+                            <span class="tier-card__price tier-card__price--accent">$199</span>
+                        </div>
+                        <p data-i18n="cert.premium.body">Очная экспертиза, страховое покрытие $1000, печатная версия по запросу.</p>
+                    </div>
+                </label>
+
+                <form id="cert-form" class="cert-form">
+                    <label class="form-field">
+                        <span>E-mail</span>
+                        <input type="email" id="cert-email" required>
+                    </label>
+                    <label class="form-field">
+                        <span data-i18n="cert.notes">Комментарии</span>
+                        <textarea id="cert-notes" rows="3"></textarea>
+                    </label>
+                    <button type="submit" class="btn btn--primary btn--lg" data-i18n="cert.submit">Отправить заявку</button>
+                </form>
+
+                <div class="callout-small" data-i18n="cert.notice">
+                    Оплата подключается с интеграцией платёжного шлюза. Сейчас заявка отправляется на e-mail основателя.
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROFILE ============ -->
+        <section class="pwa-tab" data-tab="profile">
+            <div class="profile-pane">
+                <div class="profile-card">
+                    <div class="profile-avatar">👤</div>
+                    <div>
+                        <div class="profile-name" data-i18n="profile.guest">Гость</div>
+                        <div class="profile-sub" data-i18n="profile.signin">Вход / регистрация — скоро</div>
+                    </div>
+                </div>
+
+                <h2 data-i18n="profile.appearance">Оформление</h2>
+                <div class="theme-row">
+                    <button class="theme-btn" data-set-theme="light" data-i18n="profile.theme.light">Светлая</button>
+                    <button class="theme-btn" data-set-theme="sepia" data-i18n="profile.theme.sepia">Сепия</button>
+                    <button class="theme-btn" data-set-theme="dark" data-i18n="profile.theme.dark">Тёмная</button>
+                </div>
+
+                <h2 data-i18n="profile.language">Язык</h2>
+                <div class="lang-row">
+                    <button class="lang-btn" data-set-lang="ru">Русский</button>
+                    <button class="lang-btn" data-set-lang="en">English</button>
+                    <button class="lang-btn" data-set-lang="ar">العربية</button>
+                </div>
+
+                <h2 data-i18n="profile.about">О проекте</h2>
+                <ul class="link-list">
+                    <li><a href="../index.html">Сайт stampscaner.com</a></li>
+                    <li><a href="../cert/">Реестр сертификатов</a></li>
+                    <li><a href="../terms.html">Пользовательское соглашение</a></li>
+                    <li><a href="../privacy.html">Политика конфиденциальности</a></li>
+                    <li><a href="mailto:aslankaa@yandex.ru">aslankaa@yandex.ru</a></li>
+                </ul>
+
+                <button class="btn btn--ghost" id="clear-data" data-i18n="profile.clear">Очистить локальные данные</button>
+
+                <div class="version">v0.1.0 · pwa</div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="pwa-nav">
+        <button class="pwa-nav__item" data-go="home">
+            <span class="pwa-nav__icon">🏠</span>
+            <span data-i18n="nav.home">Главная</span>
+        </button>
+        <button class="pwa-nav__item" data-go="scanner">
+            <span class="pwa-nav__icon">📷</span>
+            <span data-i18n="nav.scanner">Сканер</span>
+        </button>
+        <button class="pwa-nav__item" data-go="collection">
+            <span class="pwa-nav__icon">📚</span>
+            <span data-i18n="nav.collection">Коллекция</span>
+        </button>
+        <button class="pwa-nav__item" data-go="postman">
+            <span class="pwa-nav__icon">💬</span>
+            <span data-i18n="nav.postman">Postman</span>
+        </button>
+        <button class="pwa-nav__item" data-go="profile">
+            <span class="pwa-nav__icon">⚙</span>
+            <span data-i18n="nav.profile">Профиль</span>
+        </button>
+    </nav>
+
+    <div class="install-prompt" id="install-prompt" hidden>
+        <span data-i18n="install.hint">Установите на главный экран — будет как настоящее приложение.</span>
+        <button class="btn btn--gold btn--sm" id="install-btn" data-i18n="install.btn">Установить</button>
+        <button class="install-prompt__close" id="install-close" aria-label="Закрыть">✕</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
