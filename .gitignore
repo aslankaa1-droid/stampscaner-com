@@ -1,0 +1,19 @@
+# Deploy artefacts (содержат секреты reg.ru — НЕ коммитить никогда)
+_deploy/
+*.pfx
+*.key
+*.crt
+*.p12
+**/regru-client.*
+**/dns_before.json
+**/dns_after.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
