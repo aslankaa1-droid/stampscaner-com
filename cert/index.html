@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6B1F2E">
+    <meta name="description" content="Публичный реестр сертификатов StampScaner. Каждый выпущенный сертификат имеет постоянный URL и QR-код для верификации.">
+    <meta name="robots" content="index,follow">
+    <title>Публичный реестр сертификатов · StampScaner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='12' width='80' height='76' fill='%236B1F2E' stroke='%23B8924C' stroke-width='2' rx='2'/%3E%3Ccircle cx='50' cy='50' r='22' fill='none' stroke='%23B8924C' stroke-width='3'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='serif' font-size='28' font-weight='600' fill='%23F5EDDC'%3ES%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a href="../index.html" class="brand">
+                <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+                    <rect x="6" y="8" width="88" height="84" fill="var(--c-burgundy)" stroke="var(--c-gold)" stroke-width="2" rx="3"/>
+                    <circle cx="50" cy="50" r="24" fill="none" stroke="var(--c-gold)" stroke-width="3"/>
+                    <text x="50" y="60" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="32" font-weight="600" fill="#F5EDDC">S</text>
+                </svg>
+                <span>StampScaner</span>
+            </a>
+            <nav class="nav" data-nav>
+                <a href="../index.html#services" class="nav__link">Услуги</a>
+                <a href="../index.html#postman" class="nav__link">Агент Postman</a>
+                <a href="../index.html#certificate" class="nav__link">Сертификат</a>
+                <a href="../index.html#pricing" class="nav__link">Тарифы</a>
+                <a href="../terms.html" class="nav__link">Соглашение</a>
+            </nav>
+            <div class="controls">
+                <select class="theme-select" data-theme-select aria-label="Theme">
+                    <option value="light">☀ Light</option>
+                    <option value="sepia">⊙ Sepia</option>
+                    <option value="dark">☾ Dark</option>
+                </select>
+                <button class="control-btn mobile-toggle" data-mobile-toggle aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="legal-page">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="section-heading__eyebrow">Публичный реестр</div>
+                    <h1>Реестр сертификатов StampScaner</h1>
+                    <p class="section-heading__lead">
+                        Каждый цифровой сертификат, выпущенный за подписью Аслана Каа, регистрируется здесь — постоянным URL, QR-кодом и цифровой подписью Ed25519. Запись не может быть удалена незаметно или подделана задним числом.
+                    </p>
+                </div>
+
+                <div class="callout" style="max-width:880px; margin: 0 auto 32px;">
+                    <strong>Демонстрационный режим.</strong> Сервис открыт 29 мая 2026 года. На странице ниже — образцовая запись, иллюстрирующая структуру будущих сертификатов. После выпуска первого реального сертификата он появится в реестре с порядковым номером <code>2026-000001</code> и заменит текущий образец. Сертификаты, помеченные как <em>Pre-cert</em>, не имеют страхового покрытия.
+                </div>
+
+                <form class="registry-search" onsubmit="event.preventDefault(); alert('Поиск по реестру включится с выпуском первого реального сертификата.');">
+                    <input type="search" placeholder="Введите номер сертификата (например, 2026-000001) или код марки" aria-label="Поиск по реестру">
+                    <button type="submit" class="btn btn--primary">Найти</button>
+                </form>
+
+                <div class="registry-list" style="max-width: 880px; margin: 0 auto;">
+
+                    <a href="example-2026-000001.html" class="cert-row">
+                        <span class="cert-row__num">2026-000001</span>
+                        <div>
+                            <div class="cert-row__title">Авиапочта СССР · 1934 г.</div>
+                            <div class="cert-row__meta">Грейд APS: VF · Оценка: $420–550 · Каталог: Зг. 384 · Образец</div>
+                        </div>
+                        <span class="cert-row__tag cert-row__tag--full">Premium</span>
+                    </a>
+
+                    <div class="registry-empty">
+                        <h3>Записи ниже появятся по мере выпуска новых сертификатов.</h3>
+                        <p>Подать заявку на сертификат — <a href="../index.html#pricing">тарифная страница</a>.</p>
+                    </div>
+
+                </div>
+
+                <div style="max-width:880px; margin: 64px auto 0;">
+
+                    <h2 style="font-family: var(--font-serif); margin-bottom: 24px;">Как устроена верификация</h2>
+
+                    <ol class="legal-body" style="padding-inline-start: 24px;">
+                        <li><strong>Уникальный номер.</strong> Каждый сертификат получает номер вида <code>ГГГГ-NNNNNN</code>, начинающийся с <code>2026-000001</code>.</li>
+                        <li><strong>Публичная страница.</strong> Запись доступна по постоянному URL вида <code>stampscaner.com/cert/2026-NNNNNN.html</code>. Любой может открыть её в браузере без регистрации.</li>
+                        <li><strong>QR-код.</strong> На бумажном сертификате печатается QR, который ведёт на ту же публичную страницу. Сканирование с любого устройства подтверждает совпадение фотографий, метаданных и подписи.</li>
+                        <li><strong>Цифровая подпись.</strong> Каждая запись подписана приватным ключом Ed25519 Аслана Каа. Публичный ключ для верификации опубликован в файле <a href="public-key.txt">public-key.txt</a> (будет добавлен после генерации первой пары ключей).</li>
+                        <li><strong>Pre-cert и Premium.</strong> Цвет бейджа справа от названия указывает уровень сертификата: <span class="cert-row__tag cert-row__tag--pre" style="display:inline-block; vertical-align:middle;">Pre-cert</span> — выпущен только по AI-анализу, без страхового покрытия; <span class="cert-row__tag cert-row__tag--full" style="display:inline-block; vertical-align:middle;">Premium</span> — выпущен после очной экспертизы, со страховым покрытием 1000 USD на условиях <a href="../terms.html#s5">раздела 5 Пользовательского соглашения</a>.</li>
+                        <li><strong>Неизменность.</strong> Изменение или удаление записи реестра отображается в публичной истории коммитов исходного репозитория — это делает любые попытки тихо отозвать сертификат сразу видимыми.</li>
+                    </ol>
+
+                    <h2 style="font-family: var(--font-serif); margin: 48px 0 16px;">Если сертификат не находится</h2>
+                    <p class="legal-body" style="margin-bottom: 0;">Возможные причины: опечатка в номере, сертификат ещё не выпущен, подделка. Если вы получили физический сертификат, ссылка на котором не открывает соответствующую запись в реестре, это <strong>почти всегда</strong> означает подделку — направьте обращение на <a href="mailto:aslankaa@yandex.ru">aslankaa@yandex.ru</a> с фотографиями подозрительного документа.</p>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer__bottom">
+                <div>© 2026 Кагиров Абдул-Хаким Ахмадович. Все права защищены.</div>
+                <div>
+                    <a href="../index.html">Главная</a> ·
+                    <a href="../terms.html">Соглашение</a> ·
+                    <a href="../privacy.html">Конфиденциальность</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
