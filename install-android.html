@@ -62,17 +62,24 @@
                 <article class="legal-body">
 
                     <h2>Шаг 1 · Скачать APK</h2>
-                    <p>Последний release-APK лежит в GitHub-репозитории
-                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases" target="_blank" rel="noopener">aslankaa1-droid/stampscaner-app</a>.
-                        Открыть страницу с телефона, в разделе <em>Assets</em> нажать на файл
-                        <code>app-release.apk</code>. Android спросит, разрешить ли скачивание — подтвердить.
+                    <p><strong>Текущая сборка — v0.1.0 (52,5 МБ):</strong></p>
+                    <p style="text-align:center;margin:18px 0;">
+                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases/download/v0.1.0/StampScaner-v0.1.0.apk"
+                           class="btn btn--gold btn--lg"
+                           download>Скачать StampScaner-v0.1.0.apk</a>
+                    </p>
+                    <p>Альтернативно: открыть с телефона
+                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases/tag/v0.1.0" target="_blank" rel="noopener">страницу релиза</a>
+                        и нажать на файл <code>StampScaner-v0.1.0.apk</code> в разделе Assets.
                     </p>
 
                     <h2>Шаг 2 · Проверить подпись (для параноиков)</h2>
-                    <p>Это необязательно, но полезно, если APK получили не с GitHub, а через мессенджер: подделать SHA-256 в пути доставки нельзя, а значит совпадение хэша с публичным — гарантия, что файл не подменили.</p>
+                    <p>Это необязательно, но полезно если APK получили не с GitHub, а через мессенджер: подделать SHA-256 в пути доставки нельзя, и совпадение хэша с публичным — гарантия что файл не подменили.</p>
                     <p>В терминале Android (через Termux) или на компьютере выполнить:</p>
-                    <pre><code>sha256sum app-release.apk</code></pre>
-                    <p>Хэш текущей сборки публикуется в разделе <em>Release notes</em> репозитория и в этом разделе после каждого обновления.</p>
+                    <pre><code>sha256sum StampScaner-v0.1.0.apk</code></pre>
+                    <p>Должно вывести:</p>
+                    <pre><code style="word-break:break-all;">5d3c0b7f229924a6ae00180f63eca5cef13b6dce7a61ea2d5a7650b57bef3327</code></pre>
+                    <p>Хэш каждой новой сборки публикуется в release notes на GitHub и обновляется здесь.</p>
 
                     <h2>Шаг 3 · Разрешить установку из неизвестных источников</h2>
                     <p>Android по умолчанию блокирует установку APK мимо Google Play. Это нормальная мера безопасности. Для StampScaner её нужно временно ослабить.</p>
