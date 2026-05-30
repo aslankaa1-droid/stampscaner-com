@@ -216,7 +216,7 @@
     }
 
     // --------- Postman chat ---------
-    const POSTMAN_API = 'https://api.stampscaner.com/v1/postman/chat';
+    const POSTMAN_API = 'https://stampscaner-backend.aslankaa1.workers.dev/v1/postman/chat';
     const POSTMAN_HISTORY_CAP = 12;
     const postmanHistory = [];
 

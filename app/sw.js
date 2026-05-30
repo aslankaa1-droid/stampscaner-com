@@ -2,7 +2,7 @@
    Caches the app shell so it boots offline. Network-first for everything,
    falling back to the cached shell when offline. */
 
-const CACHE = 'stampscaner-app-v2';
+const CACHE = 'stampscaner-app-v3';
 const SHELL = [
   '/app/',
   '/app/index.html',

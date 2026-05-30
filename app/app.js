@@ -5,7 +5,7 @@
 (function () {
 'use strict';
 
-const API_BASE = 'https://api.stampscaner.com';
+const API_BASE = 'https://stampscaner-backend.aslankaa1.workers.dev';
 const ENDPOINT_IDENTIFY = API_BASE + '/v1/identify';
 const ENDPOINT_CHAT     = API_BASE + '/v1/postman/chat';
 const ENDPOINT_CERT     = API_BASE + '/v1/certificate-request';
