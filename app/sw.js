@@ -2,7 +2,7 @@
    Caches the app shell so it boots offline. Network-first for everything,
    falling back to the cached shell when offline. */
 
-const CACHE = 'stampscaner-app-v3';
+const CACHE = 'stampscaner-app-v4';
 const SHELL = [
   '/app/',
   '/app/index.html',
@@ -14,6 +14,7 @@ const SHELL = [
   '/app/icon-apple-180.png',
   '/app/splash.png',
   '/css/style.css',
+  '/pin-gate.js',
 ];
 
 self.addEventListener('install', e => {
