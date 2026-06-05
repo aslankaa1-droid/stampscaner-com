@@ -179,8 +179,11 @@
 
   "cta.title": "Готовы начать?",
   "cta.lead": "Скачайте приложение, опробуйте бесплатное распознавание и решите, какой следующий шаг — пакет документов, сертификат или маркетплейс.",
-  "cta.android": "Android · скоро",
+  "cta.android": "↓ Скачать для Android",
   "cta.ios": "iOS · скоро",
+  "cta.qr": "Наведите камеру телефона на QR-код",
+  "cta.apk.note": "APK · 52,5 МБ · Android 7.0+ · ранняя сборка",
+  "cta.howto": "Как установить вручную",
   "cta.contact.email": "aslankaa@yandex.ru",
   "cta.contact.tg": "Telegram",
   "cta.contact.wa": "WhatsApp",

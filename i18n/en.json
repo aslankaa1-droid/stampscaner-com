@@ -179,8 +179,11 @@
 
   "cta.title": "Ready to begin?",
   "cta.lead": "Download the app, try free identification and decide your next step — a documents package, a certificate, or the marketplace.",
-  "cta.android": "Android · soon",
+  "cta.android": "↓ Download for Android",
   "cta.ios": "iOS · soon",
+  "cta.qr": "Point your phone camera at the QR code",
+  "cta.apk.note": "APK · 52.5 MB · Android 7.0+ · early build",
+  "cta.howto": "How to install manually",
   "cta.contact.email": "aslankaa@yandex.ru",
   "cta.contact.tg": "Telegram",
   "cta.contact.wa": "WhatsApp",

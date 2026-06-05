@@ -64,23 +64,31 @@
                 <article class="legal-body">
 
                     <h2>Шаг 1 · Скачать APK</h2>
-                    <p><strong>Текущая сборка — v0.1.0 (52,5 МБ):</strong></p>
-                    <p style="text-align:center;margin:18px 0;">
-                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases/download/v0.1.0/StampScaner-v0.1.0.apk"
-                           class="btn btn--gold btn--lg"
-                           download>Скачать StampScaner-v0.1.0.apk</a>
-                    </p>
+                    <p><strong>Текущая сборка — v1.0 (52,5 МБ):</strong></p>
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px;margin:22px 0;">
+                        <div style="text-align:center;">
+                            <a href="https://github.com/aslankaa1-droid/stampscaner-com/releases/download/app-v1.0/StampScaner-v1.0.apk"
+                               class="btn btn--gold btn--lg"
+                               download>↓ Скачать StampScaner-v1.0.apk</a>
+                        </div>
+                        <div style="text-align:center;">
+                            <img src="app/qr-android.svg" alt="QR-код для скачивания StampScaner на Android"
+                                 width="140" height="140"
+                                 style="border:1px solid var(--c-gold,#B8924C);border-radius:8px;padding:6px;background:#fff;">
+                            <div style="font-size:13px;margin-top:6px;opacity:.75;">Наведите камеру телефона</div>
+                        </div>
+                    </div>
                     <p>Альтернативно: открыть с телефона
-                        <a href="https://github.com/aslankaa1-droid/stampscaner-app/releases/tag/v0.1.0" target="_blank" rel="noopener">страницу релиза</a>
-                        и нажать на файл <code>StampScaner-v0.1.0.apk</code> в разделе Assets.
+                        <a href="https://github.com/aslankaa1-droid/stampscaner-com/releases/tag/app-v1.0" target="_blank" rel="noopener">страницу релиза</a>
+                        и нажать на файл <code>StampScaner-v1.0.apk</code> в разделе Assets.
                     </p>
 
                     <h2>Шаг 2 · Проверить подпись (для параноиков)</h2>
                     <p>Это необязательно, но полезно если APK получили не с GitHub, а через мессенджер: подделать SHA-256 в пути доставки нельзя, и совпадение хэша с публичным — гарантия что файл не подменили.</p>
                     <p>В терминале Android (через Termux) или на компьютере выполнить:</p>
-                    <pre><code>sha256sum StampScaner-v0.1.0.apk</code></pre>
+                    <pre><code>sha256sum StampScaner-v1.0.apk</code></pre>
                     <p>Должно вывести:</p>
-                    <pre><code style="word-break:break-all;">5d3c0b7f229924a6ae00180f63eca5cef13b6dce7a61ea2d5a7650b57bef3327</code></pre>
+                    <pre><code style="word-break:break-all;">8ca865a8a5dc916ec1fa3e8b3aabb79c03a1b6389b7c980bb6541dcb69ffbdb5</code></pre>
                     <p>Хэш каждой новой сборки публикуется в release notes на GitHub и обновляется здесь.</p>
 
                     <h2>Шаг 3 · Разрешить установку из неизвестных источников</h2>

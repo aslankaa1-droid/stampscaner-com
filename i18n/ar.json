@@ -179,8 +179,11 @@
 
   "cta.title": "هل أنت مستعد للبدء؟",
   "cta.lead": "حمّل التطبيق، جرّب التعرف المجاني وقرر خطوتك التالية — حزمة وثائق، أو شهادة، أو السوق.",
-  "cta.android": "Android · قريباً",
+  "cta.android": "↓ تحميل لأندرويد",
   "cta.ios": "iOS · قريباً",
+  "cta.qr": "وجّه كاميرا هاتفك إلى رمز QR",
+  "cta.apk.note": "APK · 52.5 ميغابايت · أندرويد 7.0+ · إصدار مبكر",
+  "cta.howto": "كيفية التثبيت يدوياً",
   "cta.contact.email": "aslankaa@yandex.ru",
   "cta.contact.tg": "Telegram",
   "cta.contact.wa": "WhatsApp",
