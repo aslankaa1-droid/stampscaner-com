@@ -52,7 +52,12 @@
         '#pin-gate-card.shake { animation: pgShake 0.4s ease; }' +
         '@keyframes pgShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }' +
         '#pin-gate-brand { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.05rem; color: #B8924C; letter-spacing: 0.18em; margin-bottom: 6px; }' +
-        '#pin-gate-foot { margin-top: 18px; font-size: 0.74rem; color: #8A7660; letter-spacing: 0.04em; }';
+        '#pin-gate-foot { margin-top: 18px; font-size: 0.74rem; color: #8A7660; letter-spacing: 0.04em; }' +
+        '#pin-gate-apk { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(184,146,76,0.35); display: flex; align-items: center; gap: 14px; text-align: left; }' +
+        '#pin-gate-apk img { width: 88px; height: 88px; flex: 0 0 88px; border: 1px solid rgba(184,146,76,0.5); border-radius: 10px; padding: 5px; background: #fff; }' +
+        '#pin-gate-apk-text { font-size: 0.82rem; color: #5A4A3A; line-height: 1.45; }' +
+        '#pin-gate-apk-text strong { display: block; color: #6B1F2E; font-size: 0.9rem; margin-bottom: 3px; }' +
+        '#pin-gate-apk-link { display: block; flex: 0 0 auto; line-height: 0; }';
 
     if (document.head) {
         document.head.appendChild(style);
@@ -78,6 +83,15 @@
                 '</form>' +
                 '<div id="pin-gate-err" role="alert" aria-live="polite"></div>' +
                 '<div id="pin-gate-foot">PIN запоминается 30 дней на этом устройстве.</div>' +
+                '<div id="pin-gate-apk">' +
+                    '<a id="pin-gate-apk-link" href="https://github.com/aslankaa1-droid/stampscaner-com/releases/download/app-v1.0/StampScaner-v1.0.apk" download aria-label="Скачать приложение StampScaner для Android">' +
+                        '<img src="/app/qr-android.svg" alt="QR-код для установки приложения StampScaner на Android" />' +
+                    '</a>' +
+                    '<div id="pin-gate-apk-text">' +
+                        '<strong>📱 Приложение для Android</strong>' +
+                        'Наведите камеру телефона на QR-код, чтобы скачать и установить приложение StampScaner на смартфон Android. PIN для этого не нужен.' +
+                    '</div>' +
+                '</div>' +
             '</div>';
         document.body.appendChild(overlay);
 
