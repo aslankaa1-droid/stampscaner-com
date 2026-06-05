@@ -85,7 +85,7 @@
                 '<div id="pin-gate-foot">PIN запоминается 30 дней на этом устройстве.</div>' +
                 '<div id="pin-gate-apk">' +
                     '<a id="pin-gate-apk-link" href="https://github.com/aslankaa1-droid/stampscaner-com/releases/download/app-v1.0/StampScaner-v1.0.apk" download aria-label="Скачать приложение StampScaner для Android">' +
-                        '<img src="/app/qr-android.svg?v=1" alt="QR-код для установки приложения StampScaner на Android" />' +
+                        '<img src="/app/qrcode-install.svg" alt="QR-код для установки приложения StampScaner на Android" />' +
                     '</a>' +
                     '<div id="pin-gate-apk-text">' +
                         '<strong>📱 Приложение для Android</strong>' +
