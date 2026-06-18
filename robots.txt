@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /app/
+Disallow: /cert/
+
+Sitemap: https://stampscaner.com/sitemap.xml
