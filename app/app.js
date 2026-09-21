@@ -56,7 +56,7 @@ const STR = {
     'cert.notes': 'Комментарии',
     'cert.submit': 'Отправить заявку',
     'cert.notice': 'Оплата подключается с интеграцией платёжного шлюза. Сейчас заявка отправляется на e-mail основателя.',
-    'cert.sent': 'Заявка отправлена. Мы свяжемся в течение 24 часов.',
+    'cert.sent': 'Открыто письмо в вашем почтовом приложении — нажмите «Отправить».',
     'profile.guest': 'Гость', 'profile.signin': 'Вход / регистрация — скоро',
     'profile.appearance': 'Оформление',
     'profile.theme.light': 'Светлая', 'profile.theme.sepia': 'Сепия', 'profile.theme.dark': 'Тёмная',
@@ -114,7 +114,7 @@ const STR = {
     'cert.notes': 'Notes',
     'cert.submit': 'Send request',
     'cert.notice': 'Payment goes live with the gateway integration. For now the request is e-mailed to the founder.',
-    'cert.sent': 'Request sent. We will reply within 24 hours.',
+    'cert.sent': 'A draft opened in your mail app — press Send.',
     'profile.guest': 'Guest', 'profile.signin': 'Sign in / register — coming soon',
     'profile.appearance': 'Appearance',
     'profile.theme.light': 'Light', 'profile.theme.sepia': 'Sepia', 'profile.theme.dark': 'Dark',
@@ -172,7 +172,7 @@ const STR = {
     'cert.notes': 'ملاحظات',
     'cert.submit': 'إرسال الطلب',
     'cert.notice': 'سيتم تفعيل الدفع بعد ربط البوابة. الطلب الآن يصل بالبريد الإلكتروني للمؤسس.',
-    'cert.sent': 'تم إرسال الطلب. سنرد خلال 24 ساعة.',
+    'cert.sent': 'فُتحت رسالة في تطبيق البريد لديك — اضغط إرسال.',
     'profile.guest': 'زائر', 'profile.signin': 'تسجيل الدخول / التسجيل — قريباً',
     'profile.appearance': 'المظهر',
     'profile.theme.light': 'فاتح', 'profile.theme.sepia': 'سيبيا', 'profile.theme.dark': 'داكن',
@@ -565,13 +565,13 @@ async function submitCert(e) {
   const tier  = document.querySelector('input[name="tier"]:checked').value;
   if (!email) return;
   const stamp = lastResult || { notes: 'Заявка без идентифицированной марки.' };
-  try {
-    await fetch(ENDPOINT_CERT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tier, contact_email: email, stamp, notes: notes || undefined }),
-    });
-  } catch (_) { /* swallow — request kept locally */ }
+  // Сайт не собирает ПДн: заявка уходит из почтового приложения пользователя
+  const body = 'Тариф: ' + tier + '
+Контакт: ' + email + '
+Комментарий: ' + (notes || '-') + '
+
+Марка: ' + JSON.stringify(stamp, null, 1);
+  window.location.href = 'mailto:aslankaa@yandex.ru?subject=' + encodeURIComponent('StampScaner — заявка на сертификат') + '&body=' + encodeURIComponent(body);
   toast(tr('cert.sent'));
   document.getElementById('cert-form').reset();
 }
